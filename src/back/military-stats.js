@@ -186,4 +186,30 @@ export function loadMilitaryStats(app) {
     // MÉTODOS NO PERMITIDOS (405)
     app.put(BASE_API_URL, (req, res) => res.sendStatus(405));
     app.post(BASE_API_URL + "/:country/:year", (req, res) => res.sendStatus(405));
+
+
+    // PROXY PARA LA NASA (Near Earth Objects)
+    app.get(BASE_API_URL + "/proxy/nasa-stats", async (req, res) => {
+        try {
+            // Usamos una fecha fija o puedes dinamizarla con new Date()
+            const date = "2026-05-04"; 
+            const NASA_API_KEY = "DEMO_KEY"; // Recomiendo registrar una propia en api.nasa.gov
+            const url = `https://api.nasa.gov/neo/rest/v1/feed?start_date=${date}&end_date=${date}&api_key=${NASA_API_KEY}`;
+
+            const response = await fetch(url);
+
+            if (!response.ok) {
+                return res.status(response.status).json({ error: "Error al conectar con la API de NASA" });
+            }
+
+            const data = await response.json();
+            
+            // Devolvemos los datos a nuestro frontend (Svelte)
+            res.json(data);
+
+        } catch (error) {
+            console.error("Error en el Proxy de NASA:", error);
+            res.status(500).json({ error: "Proxy error" });
+        }
+    });
 }
