@@ -189,26 +189,30 @@ export function loadMilitaryStats(app) {
 
 
     // PROXY PARA LA NASA (Near Earth Objects)
+    // PROXY NASA adaptado a tu estructura
     app.get(BASE_API_URL + "/proxy/nasa-stats", async (req, res) => {
         try {
-            // Usamos una fecha fija o puedes dinamizarla con new Date()
-            const date = "2026-05-04"; 
-            const NASA_API_KEY = "DEMO_KEY"; // Recomiendo registrar una propia en api.nasa.gov
-            const url = `https://api.nasa.gov/neo/rest/v1/feed?start_date=${date}&end_date=${date}&api_key=${NASA_API_KEY}`;
+            // URL de la NASA (NeoWs)
+            const url = "https://api.nasa.gov/neo/rest/v1/feed?start_date=2026-05-04&end_date=2026-05-04&api_key=DEMO_KEY";
 
-            const response = await fetch(url);
+            const response = await fetch(url, {
+                method: "GET"
+                // No necesita cabeceras especiales como RapidAPI
+            });
 
             if (!response.ok) {
-                return res.status(response.status).json({ error: "Error al conectar con la API de NASA" });
+                const text = await response.text();
+                return res.status(response.status).json({
+                    error: "Error NASA API",
+                    details: text
+                });
             }
 
             const data = await response.json();
-            
-            // Devolvemos los datos a nuestro frontend (Svelte)
             res.json(data);
 
         } catch (error) {
-            console.error("Error en el Proxy de NASA:", error);
+            console.error(error);
             res.status(500).json({ error: "Proxy error" });
         }
     });
