@@ -187,36 +187,30 @@ export function loadMilitaryStats(app) {
     app.put(BASE_API_URL, (req, res) => res.sendStatus(405));
     app.post(BASE_API_URL + "/:country/:year", (req, res) => res.sendStatus(405));
 
-
-   // PROXY DE NUTRICIÓN (Dentro de loadMilitaryStats)
-app.get(BASE_API_URL + "/proxy/nutrition", async (req, res) => {
-    try {
-        const food = "cheeseburger"; // Puedes hacerlo dinámico con req.query.food si quieres
-        const response = await fetch(
-            `https://nutrition-by-api-ninjas.p.rapidapi.com/v1/nutrition?query=${food}`,
-            {
-                method: "GET",
-                headers: {
-                    "x-rapidapi-host": "nutrition-by-api-ninjas.p.rapidapi.com",
-                    "x-rapidapi-key": "TU_CLAVE_AQUÍ" // Usa la tuya de RapidAPI
-                }
-            }
-        );
-
-        if (!response.ok) {
-            const text = await response.text();
-            return res.status(response.status).json({
-                error: "Error en RapidAPI Nutrición",
-                details: text
-            });
+    app.get(BASE_URL_API + "/proxy/usa-gas-price", async (req, res) => {
+  try {
+    const response = await fetch(
+      "https://gas-price.p.rapidapi.com/allUsaPrice",
+      {
+        method: "GET",
+        headers: {
+          "x-rapidapi-host": "gas-price.p.rapidapi.com",
+          "x-rapidapi-key": "071862938bmshab9c401ecf590c2p12a14cjsnc5771649ff18"
         }
+      }
+    );
 
-        const data = await response.json();
-        res.json(data);
-
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: "Proxy error" });
+    if (!response.ok) {
+      return res.status(response.status).json({ error: "Error RapidAPI" });
     }
+
+    const data = await response.json();
+    res.json(data);
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Proxy error" });
+  }
 });
+   
 }
