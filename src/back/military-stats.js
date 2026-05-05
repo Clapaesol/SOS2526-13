@@ -36,7 +36,31 @@ export function loadMilitaryStats(app) {
             }
         });
     });
+    app.get(BASE_API_URL + "/proxy/gas-price", async (req, res) => {
+  try {
+    const response = await fetch(
+      "https://gas-price.p.rapidapi.com/allUsaPrice",
+      {
+        method: "GET",
+        headers: {
+          "x-rapidapi-host": "gas-price.p.rapidapi.com",
+          "x-rapidapi-key": "071862938bmshab9c401ecf590c2p12a14cjsnc5771649ff18"
+        }
+      }
+    );
 
+    if (!response.ok) {
+      return res.status(response.status).json({ error: "Error RapidAPI" });
+    }
+
+    const data = await response.json();
+    res.json(data);
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Proxy error" });
+  }
+});
 
    app.get(BASE_API_URL, (req, res) => {
         let query = {};
@@ -187,30 +211,6 @@ export function loadMilitaryStats(app) {
     app.put(BASE_API_URL, (req, res) => res.sendStatus(405));
     app.post(BASE_API_URL + "/:country/:year", (req, res) => res.sendStatus(405));
 
-    app.get(BASE_API_URL + "/proxy/gas-price", async (req, res) => {
-  try {
-    const response = await fetch(
-      "https://gas-price.p.rapidapi.com/allUsaPrice",
-      {
-        method: "GET",
-        headers: {
-          "x-rapidapi-host": "gas-price.p.rapidapi.com",
-          "x-rapidapi-key": "071862938bmshab9c401ecf590c2p12a14cjsnc5771649ff18"
-        }
-      }
-    );
 
-    if (!response.ok) {
-      return res.status(response.status).json({ error: "Error RapidAPI" });
-    }
-
-    const data = await response.json();
-    res.json(data);
-
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Proxy error" });
-  }
-});
    
 }
