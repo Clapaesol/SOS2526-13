@@ -1,89 +1,126 @@
-
 <script>
-    import { onMount } from "svelte";
-    import Highcharts from "highcharts";
+	import { onMount } from 'svelte';
 
-    let errorMsg = "";
+	let gasData = [];
+	let loading = true;
+	let error = '';
 
-    onMount(async () => {
-        try {
-            // Llamamos a tu proxy
-            const response = await fetch("/api/v2/military-stats/proxy/gas-price");
-            
-            if (!response.ok) {
-                errorMsg = "Error al obtener datos del proxy. ¿Has puesto la API Key?";
-                return;
-            }
+	const PROXY_URL =
+		'/api/v2/military-stats/proxy/gas-price';
 
-            const result = await response.json();
-            
-            // Los datos vienen en result.result (según la documentación de esa API)
-            const gasData = result.result;
+	onMount(async () => {
+		try {
+			const res = await fetch(PROXY_URL);
 
-            // Preparamos los datos para la gráfica
-            const chartData = [
-                { name: "Gasolina (Regular)", y: parseFloat(gasData.gasoline) },
-                { name: "Midgrade", y: parseFloat(gasData.midgrade) },
-                { name: "Premium", y: parseFloat(gasData.premium) },
-                { name: "Diesel", y: parseFloat(gasData.diesel) }
-            ];
+			if (!res.ok) {
+				throw new Error(`Error HTTP: ${res.status}`);
+			}
 
-            Highcharts.chart("gas-chart", {
-                chart: { type: 'column' },
-                title: { text: 'Precios Medios del Combustible en EE. UU.' },
-                subtitle: { text: 'Datos obtenidos vía Proxy Propio (RapidAPI)' },
-                xAxis: { type: 'category' },
-                yAxis: {
-                    title: { text: 'Precio (USD)' }
-                },
-                legend: { enabled: false },
-                series: [{
-                    name: 'Precio',
-                    colorByPoint: true,
-                    data: chartData
-                }]
-            });Highcharts.chart("gas-chart", {
-                chart: { type: 'column' },
-                title: { text: 'Precios Medios del Combustible en EE. UU.' },
-                subtitle: { text: 'Datos obtenidos vía Proxy Propio (RapidAPI)' },
-                xAxis: { type: 'category' },
-                yAxis: {
-                    title: { text: 'Precio (USD)' }
-                },
-                legend: { enabled: false },
-                
-                // --- ESTO ES LO QUE DEBES AÑADIR ---
-                accessibility: {
-                    enabled: false
-                },
-                // -----------------------------------
+			const json = await res.json();
+			console.log('Gas API response:', json);
 
-                series: [{
-                    name: 'Precio',
-                    colorByPoint: true,
-                    data: chartData
-                }]
-            });
+			gasData = json.result || [];
 
-        } catch (error) {
-            console.error(error);
-            errorMsg = "Error de conexión con el servidor.";
-        }
-    });
+			createChart();
+		} catch (e) {
+			error = e.message;
+		} finally {
+			loading = false;
+		}
+	});
+
+	function parsePrice(price) {
+		return Number(String(price).replace('$', '')) || 0;
+	}
+
+	function createChart() {
+		const Highcharts = window.Highcharts;
+
+		const topStates = gasData
+			.map((state) => ({
+				name: state.name,
+				regular: parsePrice(state.regular),
+				midGrade: parsePrice(state.midGrade),
+				premium: parsePrice(state.premium),
+				diesel: parsePrice(state.diesel)
+			}))
+			.filter((s) => s.regular > 0)
+			.sort((a, b) => b.regular - a.regular)
+			.slice(0, 10);
+
+		Highcharts.chart('container', {
+			chart: {
+				type: 'column'
+			},
+
+			title: {
+				text: 'Top 10 USA States by Gas Price'
+			},
+
+			subtitle: {
+				text: 'Data obtained from RapidAPI through my own proxy'
+			},
+
+			xAxis: {
+				categories: topStates.map((s) => s.name),
+				title: {
+					text: 'State'
+				}
+			},
+
+			yAxis: {
+				min: 0,
+				title: {
+					text: 'Price in USD'
+				}
+			},
+
+			tooltip: {
+				shared: true,
+				valuePrefix: '$'
+			},
+
+			series: [
+				{
+					name: 'Regular',
+					data: topStates.map((s) => s.regular)
+				},
+				{
+					name: 'MidGrade',
+					data: topStates.map((s) => s.midGrade)
+				},
+				{
+					name: 'Premium',
+					data: topStates.map((s) => s.premium)
+				},
+				{
+					name: 'Diesel',
+					data: topStates.map((s) => s.diesel)
+				}
+			]
+		});
+	}
 </script>
 
-<main>
-    {#if errorMsg}
-        <p style="color: red; font-weight: bold; text-align: center;">{errorMsg}</p>
-    {/if}
-    <div id="gas-chart"></div>
-</main>
+<svelte:head>
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+</svelte:head>
 
-<style>
-    #gas-chart {
-        width: 100%;
-        max-width: 800px;
-        height: 450px;
-        margin: 0 auto;
-    }
-</style>
+<main>
+	<h1>USA Gas Price Integration</h1>
+
+	<p>
+		This view retrieves USA gas price data from RapidAPI using a custom proxy and
+		displays the result with a Highcharts column chart.
+	</p>
+
+	{#if loading}
+		<p>Loading gas prices...</p>
+	{/if}
+
+	{#if error}
+		<p class="error">Error: {error}</p>
+	{/if}
+
+	<div id="container"></div>
+</main>
