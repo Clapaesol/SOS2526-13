@@ -42,6 +42,27 @@
                     colorByPoint: true,
                     data: chartData
                 }]
+            });Highcharts.chart("gas-chart", {
+                chart: { type: 'column' },
+                title: { text: 'Precios Medios del Combustible en EE. UU.' },
+                subtitle: { text: 'Datos obtenidos vía Proxy Propio (RapidAPI)' },
+                xAxis: { type: 'category' },
+                yAxis: {
+                    title: { text: 'Precio (USD)' }
+                },
+                legend: { enabled: false },
+                
+                // --- ESTO ES LO QUE DEBES AÑADIR ---
+                accessibility: {
+                    enabled: false
+                },
+                // -----------------------------------
+
+                series: [{
+                    name: 'Precio',
+                    colorByPoint: true,
+                    data: chartData
+                }]
             });
 
         } catch (error) {
