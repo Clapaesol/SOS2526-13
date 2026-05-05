@@ -52,9 +52,11 @@
 					<a href="/analytics/military-stats">Gráfica propia</a>
 				
 					<p>Integraciones</p>
-					<a href="/integrations/military-stats/global-ev-sales">global-ev-sales</a>
-					<a href="/integrations/military-stats/ozone-depleting-substance-consumptions">ozone-depleting-substance-consumptions</a>
-
+					<a href="/integrations/military-stats/global-ev-sales">Ventas globales</a>
+					<a href="/integrations/military-stats/ozone-depleting-substance-consumptions">Sustancias que agotan la capa de ozono</a>
+					<a href="/integrations/military-stats/studio-ghibli">Estudio Ghibli</a>
+					<a href="/integrations/military-stats/coffe-ingredients">Ingredientes del café</a>
+					<a href="/integrations/military-stats/gas-price">Precio del gas en USA</a>
 
 				</div>
 			</div>

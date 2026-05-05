@@ -187,7 +187,7 @@ export function loadMilitaryStats(app) {
     app.put(BASE_API_URL, (req, res) => res.sendStatus(405));
     app.post(BASE_API_URL + "/:country/:year", (req, res) => res.sendStatus(405));
 
-    app.get(BASE_URL_API + "/proxy/usa-gas-price", async (req, res) => {
+    app.get(BASE_API_URL + "/proxy/gas-price", async (req, res) => {
   try {
     const response = await fetch(
       "https://gas-price.p.rapidapi.com/allUsaPrice",
