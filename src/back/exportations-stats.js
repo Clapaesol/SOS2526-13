@@ -72,6 +72,20 @@ export function loadExportations(app){
             }
         });
     });
+        // PROXY CEREAL
+    app.get(BASE_URL + "/proxy/cereal", async (req, res) => {
+        try {
+            const response = await fetch(
+                "https://sos2526-18-cereal-productions-stable.onrender.com/api/v2/cereal-productions"
+            );
+
+            const data = await response.json();
+            res.json(data);
+
+        } catch (error) {
+            res.status(500).json({ error: "Fallo en proxy de cereal" });
+        }
+    });
 
     // POST
     app.post(BASE_URL,(req,res)=>{
