@@ -22,7 +22,7 @@ onMount(async () => {
 	await loadScript("https://code.highcharts.com/modules/treemap.js");
 
 	const res = await fetch(
-		"https://api.openbrewerydb.org/v1/breweries"
+		"/api/v2/exportations-stats/proxy/brewery"
 	);
 
 	const data = await res.json();
