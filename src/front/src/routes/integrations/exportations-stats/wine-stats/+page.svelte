@@ -33,21 +33,22 @@ onMount(async () => {
         const type = w.type || "Unknown type";
         const region = w.region || "Unknown region";
 
-        // Grape → Type
+        // Uva - Tipo
         links.push([grape, type]);
 
-        // Type → Region
+        // Tipo - Region
         links.push([type, region]);
     });
 
     Highcharts.chart("wine", {
 
         title: {
-            text: "Wine Flow: Grape → Type → Region"
+            text: "Flujo vino: Uva → Tipo → Region"
         },
 
         series: [{
             type: "sankey",
+            name:"flujo",
             keys: ["from", "to", "weight"],
             data: links.map(l => [...l, 1])
         }]

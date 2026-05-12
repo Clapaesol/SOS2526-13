@@ -73,6 +73,20 @@
 					<p>Documentación Postman</p>
 					<a href="https://documenter.getpostman.com/view/52406650/2sBXiomVBY">API v2 docs</a>
 					<a href="https://documenter.getpostman.com/view/52406650/2sBXigMYhP">API v1 docs</a>
+					
+					<p>Gráfica</p>
+					<a href="/analytics/exportations-stats">Gráfica exportaciones</a>
+					<a href="/analytics/exportations-stats/map">Mapa</a>
+				
+					<p>Integraciones (compañeros de SOS)</p>
+					<a href="/integrations/exportations-stats/cereal-productions">Produccion de cereal </a>
+					<a href="/integrations/exportations-stats/global-agriculture-climate-impacts">Impacto global del clima en la agricultura (PROXY)</a>
+					<a href="/integrations/exportations-stats/wine-stats">Vinos</a>
+					
+					<p>Integraciones </p>
+					<a href="/integrations/exportations-stats/meal">Comida</a>
+					<a href="/integrations/exportations-stats/brewery">Cervecerías EEUU (PROXY)</a>
+					<a href="/integrations/exportations-stats/rest-countries">Población</a>
 
 				</div>
 			</div>

@@ -61,7 +61,7 @@ onMount(async () => {
 		},
 
 		title: {
-			text: "Global Breweries Distribution",
+			text: "Distribución de cervecerías",
 			style: {
 				color: "#fff"
 			}
@@ -78,7 +78,7 @@ onMount(async () => {
 
 		tooltip: {
 			pointFormat:
-				"<b>{point.name}</b><br>Breweries: {point.value}"
+				"<b>{point.name}</b><br>cervecerías: {point.value}"
 		},
 
 		series: [{

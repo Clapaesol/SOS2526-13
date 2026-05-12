@@ -51,7 +51,7 @@ onMount(async () => {
         },
 
         title: {
-            text: "Climate Heatmap (Temperature by Country)"
+            text: "Impacto global del clima en la agricultura"
         },
 
         xAxis: {
@@ -59,7 +59,7 @@ onMount(async () => {
         },
 
         yAxis: {
-            categories: ["Temperature"],
+            categories: ["Temperatura"],
             title: null
         },
 
@@ -74,7 +74,7 @@ onMount(async () => {
         },
 
         series: [{
-            name: "Temperature",
+            name: "Temperatura",
             borderWidth: 1,
             data: chartData,
             dataLabels: {

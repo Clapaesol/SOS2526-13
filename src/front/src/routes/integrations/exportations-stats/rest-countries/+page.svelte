@@ -60,7 +60,7 @@ onMount(async () => {
         },
 
         title: {
-            text: "European Countries Population",
+            text: "Población por pais en Europa",
             style: {
                 color: "#ffffff"
             }
