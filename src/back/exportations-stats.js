@@ -40,7 +40,16 @@ export function loadExportations(app){
             res.status(500).json({ error: "Fallo en proxy de brewery" });
         }
     });
-
+    //PROXY: Global-agriculture-climate-impacts
+    app.get(BASE_URL + "/proxy/global-agriculture-climate-impacts", async (req, res) => {
+        try {
+            const response = await fetch("https://sos2526-22.onrender.com/api/v1/global-agriculture-climate-impacts");
+            const data = await response.json();
+            res.json(data);
+        } catch (error) {
+            res.status(500).json({ error: "Fallo en proxy de agriculture climate impacts" });
+        }
+    });
 
     // GET colección (con búsquedas y paginación)
     app.get(BASE_URL,(req,res)=>{
