@@ -29,7 +29,27 @@ export function loadExportations(app){
             }
         });
     });
-
+    //proxy 
+    // PROXY: Open Brewery DB
+    app.get(BASE_URL + "/proxy/brewery", async (req, res) => {
+        try {
+            const response = await fetch("https://api.openbrewerydb.org/v1/breweries");
+            const data = await response.json();
+            res.json(data);
+        } catch (error) {
+            res.status(500).json({ error: "Fallo en proxy de brewery" });
+        }
+    });
+    //PROXY: Global-agriculture-climate-impacts
+    app.get(BASE_URL + "/proxy/global-agriculture-climate-impacts", async (req, res) => {
+        try {
+            const response = await fetch("https://sos2526-22.onrender.com/api/v1/global-agriculture-climate-impacts");
+            const data = await response.json();
+            res.json(data);
+        } catch (error) {
+            res.status(500).json({ error: "Fallo en proxy de agriculture climate impacts" });
+        }
+    });
 
     // GET colección (con búsquedas y paginación)
     app.get(BASE_URL,(req,res)=>{
@@ -57,6 +77,7 @@ export function loadExportations(app){
             res.json(data);
         });
     });
+    
 
     //GET recurso concreto
     app.get(BASE_URL+"/:recipient/:year_of_order",(req,res)=>{
@@ -73,19 +94,7 @@ export function loadExportations(app){
         });
     });
         // PROXY CEREAL
-    app.get(BASE_URL + "/proxy/cereal", async (req, res) => {
-        try {
-            const response = await fetch(
-                "https://sos2526-18-cereal-productions-stable.onrender.com/api/v2/cereal-productions"
-            );
-
-            const data = await response.json();
-            res.json(data);
-
-        } catch (error) {
-            res.status(500).json({ error: "Fallo en proxy de cereal" });
-        }
-    });
+    
 
     // POST
     app.post(BASE_URL,(req,res)=>{

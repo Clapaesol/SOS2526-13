@@ -16,7 +16,6 @@ import {loadMilitaryStats} from './src/back/military-stats.js';
 
 import { dirname } from "path";
 import { fileURLToPath } from "url";
-import { login, verifyToken } from './src/back/auth.js';
 
 const app = express();
 
