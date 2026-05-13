@@ -28,11 +28,11 @@
 						Frontend de Pablo Moraleda Alvarez (Vue)
 					</a>
 					<p>APIs</p>
-					<a href="/api/v2/conflict-stats">API v2</a>
-					<a href="/api/v1/conflict-stats">API v1</a>
+					<a href="/api/v2/conflict-stats">API_v2</a>
+					<a href="/api/v1/conflict-stats">API_v1</a>
 					<p>Documentación Postman</p>
-					<a href="https://documenter.getpostman.com/view/53199914/2sBXijJXMJ">API v2 docs</a>
-					<a href="https://documenter.getpostman.com/view/53199914/2sBXigMtL7">API v1 docs</a>
+					<a href="https://documenter.getpostman.com/view/53199914/2sBXijJXMJ">Postman APIv2</a>
+					<a href="https://documenter.getpostman.com/view/53199914/2sBXigMtL7">Postman APIv1</a>
 
 					<p>Gráfica</p>
 					<a href="/analytics/conflict-stats">Gráfica conflictos</a>
