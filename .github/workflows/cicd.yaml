@@ -26,6 +26,7 @@ jobs:
       # 👉 NUEVO: subir coverage a Coveralls
       - name: Upload coverage to Coveralls
         uses: coverallsapp/github-action@v2
+        continue-on-error: true
         with:
           path-to-lcov: coverage/lcov.info
 

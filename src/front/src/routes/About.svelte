@@ -7,6 +7,7 @@
 			Repositorio del grupo
 		</a>
 		<a href="/analytics">Gráfica grupal</a>
+		<a href="/about">Videos</a>
 	</section>
 
 	<section class="section">
@@ -32,6 +33,13 @@
 					<p>Documentación Postman</p>
 					<a href="https://documenter.getpostman.com/view/53199914/2sBXijJXMJ">API v2 docs</a>
 					<a href="https://documenter.getpostman.com/view/53199914/2sBXigMtL7">API v1 docs</a>
+
+					<p>Gráfica</p>
+					<a href="/analytics/conflict-stats">Gráfica conflictos</a>
+					<a href="/analytics/conflict-stats/map">Mapa</a>
+				
+					<p>Integraciones/Usos con APIs publicas y de compañeros de SOS</p>
+					<a href="/integrations/conflict-stats">Integraciones/Usos</a>
 				</div>
 			</div>
 

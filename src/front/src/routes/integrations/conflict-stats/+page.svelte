@@ -11,5 +11,20 @@
 		<li>
 			<a href="./conflict-stats/soporte-average-annual-temperatures">SoporteAverageAnnualTemperatures</a>
 		</li>
+		<li>
+			<a href="./conflict-stats/coin-gecko">CoinGecko</a>
+		</li>
+		<li>
+			<a href="./conflict-stats/open-meteo">Open Meteo Sevilla</a>
+		</li>
+		<li>
+			<a href="./conflict-stats/rest-countries">REST Countries</a>
+		</li>
+		<li>
+			<a href="./conflict-stats/open-weather-map">Open Weather Map (con proxy)</a>
+		</li>
+		<li>
+			<a href="./conflict-stats/world-bank">World Bank</a>
+		</li>
 	</ul>
 </main>
