@@ -16,6 +16,8 @@
             document.head.appendChild(script);
         });
 
+        await fetch('https://sos2526-25.onrender.com/api/v1/average-annual-temperatures/loadInitialData');
+        
         const [resTemp, resConflictos] = await Promise.all([
             fetch('https://sos2526-25.onrender.com/api/v1/average-annual-temperatures'),
             fetch('/api/v2/conflict-stats')
